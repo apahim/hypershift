@@ -118,6 +118,10 @@ const (
 	// a HostedControlPlane.
 	ClusterAPIAzureProviderImage = "hypershift.openshift.io/capi-provider-azure-image"
 
+	// ClusterAPIProviderGCPImage overrides the CAPI GCP provider image to use for
+	// a HostedControlPlane.
+	ClusterAPIProviderGCPImage = "hypershift.openshift.io/capi-provider-gcp-image"
+
 	// ClusterAPIPowerVSProviderImage overrides the CAPI PowerVS provider image to use for
 	// a HostedControlPlane.
 	ClusterAPIPowerVSProviderImage = "hypershift.openshift.io/capi-provider-powervs-image"

@@ -1207,7 +1207,7 @@ go.mongodb.org/mongo-driver/x/bsonx/bsoncore
 ## explicit; go 1.22.0
 go.opentelemetry.io/auto/sdk
 go.opentelemetry.io/auto/sdk/internal/telemetry
-# go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.59.0
+# go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.60.0
 ## explicit; go 1.22.0
 go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc
 go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc/internal
@@ -1391,8 +1391,8 @@ golang.org/x/time/rate
 # gomodules.xyz/jsonpatch/v2 v2.5.0
 ## explicit; go 1.20
 gomodules.xyz/jsonpatch/v2
-# google.golang.org/genproto v0.0.0-20250115164207-1a7da9e5054f
-## explicit; go 1.22
+# google.golang.org/genproto v0.0.0-20250505200425-f936aa4a68b2
+## explicit; go 1.23.0
 google.golang.org/genproto/protobuf/field_mask
 # google.golang.org/genproto/googleapis/api v0.0.0-20250603155806-513f23925822
 ## explicit; go 1.23.0
@@ -2367,6 +2367,9 @@ sigs.k8s.io/cluster-api-provider-azure/util/azure
 sigs.k8s.io/cluster-api-provider-azure/util/ssh
 sigs.k8s.io/cluster-api-provider-azure/util/versions
 sigs.k8s.io/cluster-api-provider-azure/util/webhook
+# sigs.k8s.io/cluster-api-provider-gcp v1.10.0
+## explicit; go 1.23.7
+sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1
 # sigs.k8s.io/cluster-api-provider-ibmcloud v0.11.0
 ## explicit; go 1.23.2
 sigs.k8s.io/cluster-api-provider-ibmcloud/api/v1beta1

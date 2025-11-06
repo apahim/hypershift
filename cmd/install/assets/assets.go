@@ -22,6 +22,7 @@ import (
 //go:embed cluster-api-provider-kubevirt/*
 //go:embed cluster-api-provider-agent/*
 //go:embed cluster-api-provider-azure/*
+//go:embed cluster-api-provider-gcp/*
 //go:embed cluster-api-provider-openstack/*
 var CRDS embed.FS
 
@@ -53,6 +54,10 @@ var capiResources = map[string]string{
 	"cluster-api-provider-azure/infrastructure.cluster.x-k8s.io_azureclusters.yaml":                    "v1beta1",
 	"cluster-api-provider-azure/infrastructure.cluster.x-k8s.io_azuremachines.yaml":                    "v1beta1",
 	"cluster-api-provider-azure/infrastructure.cluster.x-k8s.io_azuremachinetemplates.yaml":            "v1beta1",
+	"cluster-api-provider-gcp/infrastructure.cluster.x-k8s.io_gcpclusters.yaml":                        "v1beta1",
+	"cluster-api-provider-gcp/infrastructure.cluster.x-k8s.io_gcpmachines.yaml":                        "v1beta1",
+	"cluster-api-provider-gcp/infrastructure.cluster.x-k8s.io_gcpmachinetemplates.yaml":                "v1beta1",
+	"cluster-api-provider-gcp/infrastructure.cluster.x-k8s.io_gcpclustertemplates.yaml":                "v1beta1",
 	"cluster-api-provider-openstack/openstack.k-orc.cloud_images.yaml":                                 "v1alpha1",
 	"cluster-api-provider-openstack/infrastructure.cluster.x-k8s.io_openstackclustertemplates.yaml":    "v1beta1",
 	"cluster-api-provider-openstack/infrastructure.cluster.x-k8s.io_openstackclusters.yaml":            "v1beta1",

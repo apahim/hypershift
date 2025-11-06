@@ -100,6 +100,7 @@ require (
 	sigs.k8s.io/cluster-api v1.10.4
 	sigs.k8s.io/cluster-api-provider-aws/v2 v2.8.2-0.20250820205306-645f38e4c152
 	sigs.k8s.io/cluster-api-provider-azure v1.21.0
+	sigs.k8s.io/cluster-api-provider-gcp v1.10.0
 	sigs.k8s.io/cluster-api-provider-ibmcloud v0.11.0
 	sigs.k8s.io/cluster-api-provider-kubevirt v0.1.9
 	sigs.k8s.io/cluster-api-provider-openstack v0.12.1
@@ -229,7 +230,7 @@ require (
 	go.etcd.io/etcd/raft/v3 v3.5.19 // indirect
 	go.mongodb.org/mongo-driver v1.17.2 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
-	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.59.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.60.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.60.0 // indirect
 	go.opentelemetry.io/otel v1.37.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.37.0 // indirect
@@ -246,7 +247,7 @@ require (
 	golang.org/x/term v0.34.0 // indirect
 	golang.org/x/text v0.28.0 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.5.0 // indirect
-	google.golang.org/genproto v0.0.0-20250115164207-1a7da9e5054f // indirect
+	google.golang.org/genproto v0.0.0-20250505200425-f936aa4a68b2 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250603155806-513f23925822 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250603155806-513f23925822 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect

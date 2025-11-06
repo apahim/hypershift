@@ -8,6 +8,7 @@ const (
 	AgentCAPIProviderEnvVar           = "IMAGE_AGENT_CAPI_PROVIDER"
 	AWSCAPIProviderEnvVar             = "IMAGE_AWS_CAPI_PROVIDER"
 	AzureCAPIProviderEnvVar           = "IMAGE_AZURE_CAPI_PROVIDER"
+	GCPCAPIProviderEnvVar             = "IMAGE_GCP_CAPI_PROVIDER"
 	KubevirtCAPIProviderEnvVar        = "IMAGE_KUBEVIRT_CAPI_PROVIDER"
 	PowerVSCAPIProviderEnvVar         = "IMAGE_POWERVS_CAPI_PROVIDER"
 	KonnectivityEnvVar                = "IMAGE_KONNECTIVITY"
@@ -40,6 +41,7 @@ func TagMapping() map[string]string {
 		"cluster-api-provider-agent":     AgentCAPIProviderEnvVar,
 		"cluster-api-provider-aws":       AWSCAPIProviderEnvVar,
 		"cluster-api-provider-azure":     AzureCAPIProviderEnvVar,
+		"cluster-api-provider-gcp":       GCPCAPIProviderEnvVar,
 		"cluster-api-provider-kubevirt":  KubevirtCAPIProviderEnvVar,
 		"cluster-api-provider-powervs":   PowerVSCAPIProviderEnvVar,
 		"cluster-api-provider-openstack": OpenStackCAPIProviderEnvVar,

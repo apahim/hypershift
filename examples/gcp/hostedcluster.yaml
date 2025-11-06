@@ -1,0 +1,49 @@
+apiVersion: hypershift.openshift.io/v1beta1
+kind: HostedCluster
+metadata:
+  name: example-gcp-cluster
+  namespace: clusters
+  annotations:
+    # Optional: Override CAPG provider image
+    hypershift.openshift.io/capi-provider-gcp-image: "gcr.io/k8s-staging-cluster-api-gcp/cluster-api-gcp-controller:latest"
+spec:
+  release:
+    image: quay.io/openshift-release-dev/ocp-release:4.16.0-x86_64
+
+  # GCP Platform Configuration
+  platform:
+    type: GCP
+    gcp:
+      # Required: GCP project ID
+      project: "my-gcp-project"
+
+      # Required: GCP region for the cluster
+      region: "us-central1"
+
+      # Required: Network configuration for Private Service Connect
+      networkConfig:
+        network:
+          # Name of existing VPC network
+          name: "my-vpc-network"
+
+        # Subnet for Private Service Connect endpoint
+        privateServiceConnectSubnet:
+          name: "my-psc-subnet"
+
+  # Networking Configuration
+  networking:
+    clusterNetwork:
+    - cidr: 10.132.0.0/14
+    serviceNetwork:
+    - cidr: 172.31.0.0/16
+    networkType: OVNKubernetes
+
+  # DNS Configuration
+  dns:
+    baseDomain: example.com
+
+  # Required Secrets
+  pullSecret:
+    name: pull-secret
+  sshKey:
+    name: ssh-key

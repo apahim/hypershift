@@ -233,6 +233,11 @@ cluster-api-provider-azure: $(CONTROLLER_GEN)
 # remove CAPZ managed CRDS
 	rm -rf cmd/install/assets/cluster-api-provider-azure/infrastructure.cluster.x-k8s.io_azuremanaged*.yaml
 
+.PHONY: cluster-api-provider-gcp
+cluster-api-provider-gcp: $(CONTROLLER_GEN)
+	rm -rf cmd/install/assets/cluster-api-provider-gcp/*.yaml
+	$(CONTROLLER_GEN) $(CRD_OPTIONS) paths="./vendor/sigs.k8s.io/cluster-api-provider-gcp/api/..." output:crd:artifacts:config=cmd/install/assets/cluster-api-provider-gcp
+
 .PHONY: cluster-api-provider-openstack
 cluster-api-provider-openstack: $(CONTROLLER_GEN)
 	rm -rf cmd/install/assets/cluster-api-provider-openstack/*.yaml
@@ -341,7 +346,7 @@ staticcheck: $(STATICCHECK)
 # Build the docker image with official golang image
 .PHONY: docker-build
 docker-build:
-	${RUNTIME} build . -t ${IMG}
+	${RUNTIME} build --platform linux/amd64 . -t ${IMG}
 
 # Push the docker image
 .PHONY: docker-push
