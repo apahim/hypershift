@@ -92,20 +92,19 @@ type GCPPlatformSpec struct {
 	EndpointAccess GCPEndpointAccessType `json:"endpointAccess,omitempty"`
 
 	// resourceLabels are applied to all GCP resources created for the cluster.
-	// These labels help with resource organization, cost tracking, and management.
-	// Keys and values must conform to GCP label requirements:
-	//   - Keys: 1-63 characters, must start with lowercase letter or international character
-	//   - Values: 0-63 characters (may be empty)
-	//   - Characters: lowercase letters, numeric characters, underscores, dashes, UTF-8 encoding
-	//   - Maximum 64 labels per resource
-	// See https://cloud.google.com/compute/docs/labeling-resources
+	// Keys and values must conform to the following (as enforced by this schema):
+	//   - Keys: 1–63 chars, must start with a lowercase letter; allowed [a-z0-9_-]
+	//   - Values: empty or 1–63 chars; allowed [a-z0-9_-]
+	//   - Maximum 60 user labels per resource (GCP limit is 64 total, with ~4 reserved for system labels)
+	// For GCP labeling guidance, see https://cloud.google.com/compute/docs/labeling-resources
 	//
 	// +optional
-	// +kubebuilder:validation:MaxProperties=64
+	// +kubebuilder:validation:MaxProperties=60
 	// +kubebuilder:validation:XValidation:rule="keys(self).all(k, size(k) >= 1 && size(k) <= 63)", message="All label keys must be 1-63 characters"
 	// +kubebuilder:validation:XValidation:rule="keys(self).all(k, size(self[k]) <= 63)", message="All label values must be at most 63 characters"
 	// +kubebuilder:validation:XValidation:rule="keys(self).all(k, k.matches('^[a-z][a-z0-9_-]{0,62}$'))", message="Label keys must start with lowercase letter and contain only lowercase letters, numbers, underscores, and dashes"
-	// +kubebuilder:validation:XValidation:rule="keys(self).all(k, self[k] == '' || self[k].matches('^[a-z][a-z0-9_-]{0,62}$'))", message="Label values must be empty or start with lowercase letter and contain only lowercase letters, numbers, underscores, and dashes"
+	// +kubebuilder:validation:XValidation:rule="keys(self).all(k, !k.matches('^goog-') && !k.matches('^google-'))", message="Label keys starting with 'goog-' or 'google-' are reserved by Google services"
+	// +kubebuilder:validation:XValidation:rule="keys(self).all(k, self[k] == '' || self[k].matches('^[a-z0-9_-]{1,63}$'))", message="Label values must be empty or 1-63 chars of [a-z0-9_-]"
 	ResourceLabels map[string]string `json:"resourceLabels,omitempty"`
 
 	// workloadIdentity configures Workload Identity Federation for the cluster.
