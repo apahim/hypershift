@@ -24,10 +24,12 @@ import (
 // GCPPlatformSpecApplyConfiguration represents a declarative configuration of the GCPPlatformSpec type for use
 // with apply.
 type GCPPlatformSpecApplyConfiguration struct {
-	Project        *string                                  `json:"project,omitempty"`
-	Region         *string                                  `json:"region,omitempty"`
-	NetworkConfig  *GCPNetworkConfigApplyConfiguration      `json:"networkConfig,omitempty"`
-	EndpointAccess *hypershiftv1beta1.GCPEndpointAccessType `json:"endpointAccess,omitempty"`
+	Project          *string                                      `json:"project,omitempty"`
+	Region           *string                                      `json:"region,omitempty"`
+	NetworkConfig    *GCPNetworkConfigApplyConfiguration          `json:"networkConfig,omitempty"`
+	EndpointAccess   *hypershiftv1beta1.GCPEndpointAccessType     `json:"endpointAccess,omitempty"`
+	ResourceLabels   map[string]string                            `json:"resourceLabels,omitempty"`
+	WorkloadIdentity *GCPWorkloadIdentityConfigApplyConfiguration `json:"workloadIdentity,omitempty"`
 }
 
 // GCPPlatformSpecApplyConfiguration constructs a declarative configuration of the GCPPlatformSpec type for use with
@@ -65,5 +67,27 @@ func (b *GCPPlatformSpecApplyConfiguration) WithNetworkConfig(value *GCPNetworkC
 // If called multiple times, the EndpointAccess field is set to the value of the last call.
 func (b *GCPPlatformSpecApplyConfiguration) WithEndpointAccess(value hypershiftv1beta1.GCPEndpointAccessType) *GCPPlatformSpecApplyConfiguration {
 	b.EndpointAccess = &value
+	return b
+}
+
+// WithResourceLabels puts the entries into the ResourceLabels field in the declarative configuration
+// and returns the receiver, so that objects can be build by chaining "With" function invocations.
+// If called multiple times, the entries provided by each call will be put on the ResourceLabels field,
+// overwriting an existing map entries in ResourceLabels field with the same key.
+func (b *GCPPlatformSpecApplyConfiguration) WithResourceLabels(entries map[string]string) *GCPPlatformSpecApplyConfiguration {
+	if b.ResourceLabels == nil && len(entries) > 0 {
+		b.ResourceLabels = make(map[string]string, len(entries))
+	}
+	for k, v := range entries {
+		b.ResourceLabels[k] = v
+	}
+	return b
+}
+
+// WithWorkloadIdentity sets the WorkloadIdentity field in the declarative configuration to the given value
+// and returns the receiver, so that objects can be built by chaining "With" function invocations.
+// If called multiple times, the WorkloadIdentity field is set to the value of the last call.
+func (b *GCPPlatformSpecApplyConfiguration) WithWorkloadIdentity(value *GCPWorkloadIdentityConfigApplyConfiguration) *GCPPlatformSpecApplyConfiguration {
+	b.WorkloadIdentity = value
 	return b
 }
