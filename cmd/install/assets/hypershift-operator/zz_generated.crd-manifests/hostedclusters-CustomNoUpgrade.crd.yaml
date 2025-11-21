@@ -5175,20 +5175,6 @@ spec:
                           For GCP labeling guidance, see https://cloud.google.com/compute/docs/labeling-resources
                         maxProperties: 60
                         type: object
-                        x-kubernetes-validations:
-                        - message: All label keys must be 1-63 characters
-                          rule: keys(self).all(k, size(k) >= 1 && size(k) <= 63)
-                        - message: All label values must be at most 63 characters
-                          rule: keys(self).all(k, size(self[k]) <= 63)
-                        - message: Label keys must start with lowercase letter and
-                            contain only lowercase letters, numbers, underscores,
-                            and dashes
-                          rule: keys(self).all(k, k.matches('^[a-z][a-z0-9_-]{0,62}$'))
-                        - message: Label keys starting with 'goog-' or 'google-' are
-                            reserved by Google services
-                          rule: keys(self).all(k, !k.matches('^goog-') && !k.matches('^google-'))
-                        - message: Label values must be empty or 1-63 chars of [a-z0-9_-]
-                          rule: keys(self).all(k, self[k] == '' || self[k].matches('^[a-z0-9_-]{1,63}$'))
                       workloadIdentity:
                         description: |-
                           workloadIdentity configures Workload Identity Federation for the cluster.
