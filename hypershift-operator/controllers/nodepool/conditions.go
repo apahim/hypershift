@@ -152,6 +152,8 @@ func (r *NodePoolReconciler) setPlatformConditions(ctx context.Context, hcluster
 		return r.setPowerVSconditions(ctx, nodePool, hcluster, controlPlaneNamespace, releaseImage)
 	case hyperv1.OpenStackPlatform:
 		return r.setOpenStackConditions(ctx, nodePool, hcluster, controlPlaneNamespace, releaseImage)
+	case hyperv1.GCPPlatform:
+		return r.setGCPConditions(ctx, nodePool, hcluster, controlPlaneNamespace, releaseImage)
 	default:
 		return nil
 	}
