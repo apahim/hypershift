@@ -1773,13 +1773,12 @@ func (r *HostedClusterReconciler) reconcile(ctx context.Context, req ctrl.Reques
 	// Reconcile the CAPI Cluster resource
 	// In the None platform case, there is no CAPI provider/resources so infraCR is nil
 	if infraCR != nil {
-		// For GCP, use a fixed cluster name to avoid naming transformations
-		var capiCluster *capiv1.Cluster
+		// For GCP, use a GCP-compliant cluster name (CAPG generates network tags from cluster name)
+		capiClusterName := hcluster.Spec.InfraID
 		if hcluster.Spec.Platform.Type == hyperv1.GCPPlatform {
-			capiCluster = controlplaneoperator.CAPIClusterForGCP(controlPlaneNamespace.Name)
-		} else {
-			capiCluster = controlplaneoperator.CAPICluster(controlPlaneNamespace.Name, hcluster.Spec.InfraID)
+			capiClusterName = gcpCompliantClusterName(hcluster.Spec.InfraID)
 		}
+		capiCluster := controlplaneoperator.CAPICluster(controlPlaneNamespace.Name, capiClusterName)
 		_, err = createOrUpdate(ctx, r.Client, capiCluster, func() error {
 			return reconcileCAPICluster(capiCluster, hcluster, hcp, infraCR)
 		})
@@ -2852,14 +2851,7 @@ func pauseCAPICluster(ctx context.Context, c client.Client, hcp *hyperv1.HostedC
 		return nil
 	}
 
-	// For GCP, use fixed cluster name; for other platforms, use infraID
-	var capiCluster *capiv1.Cluster
-	if hcp.Spec.Platform.Type == hyperv1.GCPPlatform {
-		capiCluster = controlplaneoperator.CAPIClusterForGCP(hcp.Namespace)
-	} else {
-		capiCluster = controlplaneoperator.CAPICluster(hcp.Namespace, hcp.Spec.InfraID)
-	}
-
+	capiCluster := controlplaneoperator.CAPICluster(hcp.Namespace, hcp.Spec.InfraID)
 	err := c.Get(ctx, client.ObjectKeyFromObject(capiCluster), capiCluster)
 	if err != nil {
 		if !apierrors.IsNotFound(err) {
@@ -3295,10 +3287,10 @@ func (r *HostedClusterReconciler) delete(ctx context.Context, hc *hyperv1.Hosted
 		return false, err
 	}
 	if hc != nil && len(hc.Spec.InfraID) > 0 {
-		// For GCP, use fixed "capi-cluster" name; for other platforms, use infraID
+		// For GCP, use a GCP-compliant cluster name to match what was created
 		capiClusterName := hc.Spec.InfraID
 		if hc.Spec.Platform.Type == hyperv1.GCPPlatform {
-			capiClusterName = "capi-cluster"
+			capiClusterName = gcpCompliantClusterName(hc.Spec.InfraID)
 		}
 		exists, err := hyperutil.DeleteIfNeeded(ctx, r.Client, &capiv1.Cluster{
 			ObjectMeta: metav1.ObjectMeta{
@@ -4981,4 +4973,21 @@ func (r *HostedClusterReconciler) reconcileAdditionalTrustBundle(ctx context.Con
 	}
 
 	return nil
+}
+
+// gcpCompliantClusterName converts an infraID to a GCP-compliant cluster name.
+// GCP network tags (which CAPG generates from cluster name) must start with a lowercase letter.
+// This function prefixes the infraID with 'hcp-' if it starts with a non-letter character.
+func gcpCompliantClusterName(infraID string) string {
+	if len(infraID) == 0 {
+		return infraID
+	}
+
+	// Check if first character is a lowercase letter
+	if infraID[0] >= 'a' && infraID[0] <= 'z' {
+		return infraID
+	}
+
+	// Prefix with 'hcp-' (for hypershift control plane) to make it GCP-compliant
+	return "hcp-" + infraID
 }

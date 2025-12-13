@@ -52,17 +52,6 @@ func KASServiceCAPIKubeconfigSecret(controlPlaneNamespace, infraID string) *core
 	}
 }
 
-// KASServiceCAPIKubeconfigSecretForGCP returns the kubeconfig secret for GCP with a fixed name.
-// For GCP, the CAPI Cluster is always named "capi-cluster" to avoid naming transformations.
-func KASServiceCAPIKubeconfigSecretForGCP(controlPlaneNamespace string) *corev1.Secret {
-	return &corev1.Secret{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      "capi-cluster-kubeconfig",
-			Namespace: controlPlaneNamespace,
-		},
-	}
-}
-
 func HCCOKubeconfigSecret(controlPlaneNamespace string) *corev1.Secret {
 	return &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{

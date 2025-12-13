@@ -99,17 +99,6 @@ func CAPICluster(controlPlaneOperatorNamespace string, infraID string) *capiv1.C
 	}
 }
 
-// CAPIClusterForGCP returns a CAPI Cluster with a fixed name for GCP platform.
-// GCP requires consistent naming to avoid cluster name transformations.
-func CAPIClusterForGCP(controlPlaneOperatorNamespace string) *capiv1.Cluster {
-	return &capiv1.Cluster{
-		ObjectMeta: metav1.ObjectMeta{
-			Namespace: controlPlaneOperatorNamespace,
-			Name:      "capi-cluster",
-		},
-	}
-}
-
 func HostedControlPlane(controlPlaneNamespace string, hostedClusterName string) *hyperv1.HostedControlPlane {
 	return &hyperv1.HostedControlPlane{
 		ObjectMeta: metav1.ObjectMeta{
