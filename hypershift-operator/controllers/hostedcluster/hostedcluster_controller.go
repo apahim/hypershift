@@ -4977,17 +4977,12 @@ func (r *HostedClusterReconciler) reconcileAdditionalTrustBundle(ctx context.Con
 
 // gcpCompliantClusterName converts an infraID to a GCP-compliant cluster name.
 // GCP network tags (which CAPG generates from cluster name) must start with a lowercase letter.
-// This function prefixes the infraID with 'hcp-' if it starts with a non-letter character.
+// This function always prefixes the infraID with 'hcp-' for consistency and GCP compliance.
 func gcpCompliantClusterName(infraID string) string {
 	if len(infraID) == 0 {
 		return infraID
 	}
 
-	// Check if first character is a lowercase letter
-	if infraID[0] >= 'a' && infraID[0] <= 'z' {
-		return infraID
-	}
-
-	// Prefix with 'hcp-' (for hypershift control plane) to make it GCP-compliant
+	// Always prefix with 'hcp-' (for hypershift control plane) for consistent GCP-compliant naming
 	return "hcp-" + infraID
 }

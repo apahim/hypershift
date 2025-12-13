@@ -41,20 +41,14 @@ func adaptServiceKubeconfigSecret(cpContext component.WorkloadContext, secret *c
 
 // gcpCompliantCAPIClusterName returns the CAPI cluster name for GCP, matching the logic
 // in hypershift-operator that creates the CAPI cluster (hostedcluster_controller.go:gcpCompliantClusterName).
-// For GCP, if infraID starts with a non-letter character, it's prefixed with "hcp-" to comply with
-// GCP network tag requirements (CAPG generates network tags from cluster name, and tags must start
-// with a lowercase letter).
+// For GCP, the infraID is always prefixed with "hcp-" to comply with GCP network tag requirements
+// (CAPG generates network tags from cluster name, and tags must start with a lowercase letter).
 func gcpCompliantCAPIClusterName(infraID string) string {
 	if len(infraID) == 0 {
 		return infraID
 	}
 
-	// Check if first character is a lowercase letter
-	if infraID[0] >= 'a' && infraID[0] <= 'z' {
-		return infraID
-	}
-
-	// Prefix with 'hcp-' (for hypershift control plane) to make it GCP-compliant
+	// Always prefix with 'hcp-' (for hypershift control plane) for consistent GCP-compliant naming
 	return "hcp-" + infraID
 }
 

@@ -22,9 +22,9 @@ func TestGcpCompliantCAPIClusterName(t *testing.T) {
 		expected string
 	}{
 		{
-			name:     "infraID starting with lowercase letter - no transformation",
+			name:     "infraID starting with lowercase letter - add hcp prefix",
 			infraID:  "abc123-456",
-			expected: "abc123-456",
+			expected: "hcp-abc123-456",
 		},
 		{
 			name:     "infraID starting with digit - add hcp prefix",
@@ -47,9 +47,9 @@ func TestGcpCompliantCAPIClusterName(t *testing.T) {
 			expected: "",
 		},
 		{
-			name:     "single letter a - no transformation",
+			name:     "single letter a - add hcp prefix",
 			infraID:  "a",
-			expected: "a",
+			expected: "hcp-a",
 		},
 		{
 			name:     "single digit - add hcp prefix",
@@ -71,22 +71,22 @@ func TestGcpCompliantCAPIClusterName(t *testing.T) {
 // the kubeconfig secret name and label use GCP-compliant cluster naming.
 func TestAdaptCAPIKubeconfigSecret_GCP(t *testing.T) {
 	tests := []struct {
-		name                    string
-		infraID                 string
-		expectedSecretName      string
+		name                     string
+		infraID                  string
+		expectedSecretName       string
 		expectedClusterNameLabel string
 	}{
 		{
-			name:                    "GCP with digit-starting infraID",
-			infraID:                 "1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd",
-			expectedSecretName:      "hcp-1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd-kubeconfig",
+			name:                     "GCP with digit-starting infraID",
+			infraID:                  "1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd",
+			expectedSecretName:       "hcp-1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd-kubeconfig",
 			expectedClusterNameLabel: "hcp-1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd",
 		},
 		{
-			name:                    "GCP with letter-starting infraID",
-			infraID:                 "abc123-456-789",
-			expectedSecretName:      "abc123-456-789-kubeconfig",
-			expectedClusterNameLabel: "abc123-456-789",
+			name:                     "GCP with letter-starting infraID",
+			infraID:                  "abc123-456-789",
+			expectedSecretName:       "hcp-abc123-456-789-kubeconfig",
+			expectedClusterNameLabel: "hcp-abc123-456-789",
 		},
 	}
 
@@ -140,31 +140,31 @@ func TestAdaptCAPIKubeconfigSecret_GCP(t *testing.T) {
 // the kubeconfig secret name uses infraID directly without transformation.
 func TestAdaptCAPIKubeconfigSecret_NonGCP(t *testing.T) {
 	tests := []struct {
-		name                    string
-		platformType            hyperv1.PlatformType
-		infraID                 string
-		expectedSecretName      string
+		name                     string
+		platformType             hyperv1.PlatformType
+		infraID                  string
+		expectedSecretName       string
 		expectedClusterNameLabel string
 	}{
 		{
-			name:                    "AWS with digit-starting infraID",
-			platformType:            hyperv1.AWSPlatform,
-			infraID:                 "1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd",
-			expectedSecretName:      "1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd-kubeconfig",
+			name:                     "AWS with digit-starting infraID",
+			platformType:             hyperv1.AWSPlatform,
+			infraID:                  "1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd",
+			expectedSecretName:       "1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd-kubeconfig",
 			expectedClusterNameLabel: "1e71f9a4-833f-439b-91fc-2c4f6ad7e2bd",
 		},
 		{
-			name:                    "Azure with digit-starting infraID",
-			platformType:            hyperv1.AzurePlatform,
-			infraID:                 "2a81f0b5-944g-540c-a2gd-3d5g7be8f3ce",
-			expectedSecretName:      "2a81f0b5-944g-540c-a2gd-3d5g7be8f3ce-kubeconfig",
+			name:                     "Azure with digit-starting infraID",
+			platformType:             hyperv1.AzurePlatform,
+			infraID:                  "2a81f0b5-944g-540c-a2gd-3d5g7be8f3ce",
+			expectedSecretName:       "2a81f0b5-944g-540c-a2gd-3d5g7be8f3ce-kubeconfig",
 			expectedClusterNameLabel: "2a81f0b5-944g-540c-a2gd-3d5g7be8f3ce",
 		},
 		{
-			name:                    "OpenStack with letter-starting infraID",
-			platformType:            hyperv1.OpenStackPlatform,
-			infraID:                 "openstack-cluster-123",
-			expectedSecretName:      "openstack-cluster-123-kubeconfig",
+			name:                     "OpenStack with letter-starting infraID",
+			platformType:             hyperv1.OpenStackPlatform,
+			infraID:                  "openstack-cluster-123",
+			expectedSecretName:       "openstack-cluster-123-kubeconfig",
 			expectedClusterNameLabel: "openstack-cluster-123",
 		},
 	}
