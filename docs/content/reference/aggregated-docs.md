@@ -52547,8 +52547,8 @@ If not specified, defaults to &ldquo;MIGRATE&rdquo; for Standard instances and &
 <td>
 <code>email</code></br>
 <em>
-<a href="#hypershift.openshift.io/v1beta1.GCPServiceAccountEmail">
-GCPServiceAccountEmail
+<a href="#hypershift.openshift.io/v1beta1.GCPNodeServiceAccountEmail">
+GCPNodeServiceAccountEmail
 </a>
 </em>
 </td>
@@ -52582,6 +52582,17 @@ Common scopes include:
 </tr>
 </tbody>
 </table>
+###GCPNodeServiceAccountEmail { #hypershift.openshift.io/v1beta1.GCPNodeServiceAccountEmail }
+<p>
+(<em>Appears on:</em>
+<a href="#hypershift.openshift.io/v1beta1.GCPNodeServiceAccount">GCPNodeServiceAccount</a>)
+</p>
+<p>
+<p>GCPNodeServiceAccountEmail identifies a Google Service Account attached to a worker.
+Unlike controller identities, workers may explicitly select the project&rsquo;s default
+Compute service account, whose email uses the developer.gserviceaccount.com domain.
+This validates only email syntax; GCP IAM still authorizes attaching the account.</p>
+</p>
 ###GCPOnHostMaintenance { #hypershift.openshift.io/v1beta1.GCPOnHostMaintenance }
 <p>
 (<em>Appears on:</em>
@@ -53133,7 +53144,6 @@ spaces between them.</p>
 ###GCPServiceAccountEmail { #hypershift.openshift.io/v1beta1.GCPServiceAccountEmail }
 <p>
 (<em>Appears on:</em>
-<a href="#hypershift.openshift.io/v1beta1.GCPNodeServiceAccount">GCPNodeServiceAccount</a>,
 <a href="#hypershift.openshift.io/v1beta1.GCPServiceAccountsEmails">GCPServiceAccountsEmails</a>)
 </p>
 <p>
