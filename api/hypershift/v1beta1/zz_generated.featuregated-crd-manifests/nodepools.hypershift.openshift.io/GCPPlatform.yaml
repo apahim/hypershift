@@ -1334,9 +1334,10 @@ spec:
                             minLength: 37
                             type: string
                             x-kubernetes-validations:
-                            - message: 'email must be a valid GCP service account
-                                email (format: name@project.iam.gserviceaccount.com)'
-                              rule: self.matches('^[a-z][a-z0-9-]{4,28}[a-z0-9]@[a-z][a-z0-9-]{4,28}[a-z0-9]\\.iam\\.gserviceaccount\\.com$')
+                            - message: email must be a valid custom GCP service account
+                                email or a numeric default Compute service account
+                                email
+                              rule: self.matches('^([a-z][a-z0-9-]{4,28}[a-z0-9]@[a-z][a-z0-9-]{4,28}[a-z0-9][.]iam[.]gserviceaccount[.]com|[1-9][0-9]{0,19}-compute@developer[.]gserviceaccount[.]com)$')
                           scopes:
                             description: |-
                               scopes specifies the access scopes for the service account.

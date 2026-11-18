@@ -24,8 +24,8 @@ import (
 // GCPNodeServiceAccountApplyConfiguration represents a declarative configuration of the GCPNodeServiceAccount type for use
 // with apply.
 type GCPNodeServiceAccountApplyConfiguration struct {
-	Email  *hypershiftv1beta1.GCPServiceAccountEmail `json:"email,omitempty"`
-	Scopes []string                                  `json:"scopes,omitempty"`
+	Email  *hypershiftv1beta1.GCPNodeServiceAccountEmail `json:"email,omitempty"`
+	Scopes []string                                      `json:"scopes,omitempty"`
 }
 
 // GCPNodeServiceAccountApplyConfiguration constructs a declarative configuration of the GCPNodeServiceAccount type for use with
@@ -37,7 +37,7 @@ func GCPNodeServiceAccount() *GCPNodeServiceAccountApplyConfiguration {
 // WithEmail sets the Email field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the Email field is set to the value of the last call.
-func (b *GCPNodeServiceAccountApplyConfiguration) WithEmail(value hypershiftv1beta1.GCPServiceAccountEmail) *GCPNodeServiceAccountApplyConfiguration {
+func (b *GCPNodeServiceAccountApplyConfiguration) WithEmail(value hypershiftv1beta1.GCPNodeServiceAccountEmail) *GCPNodeServiceAccountApplyConfiguration {
 	b.Email = &value
 	return b
 }
