@@ -640,7 +640,7 @@ type GCPNodeServiceAccount struct {
 	//   - Storage object viewer (for pulling container images)
 	//
 	// +optional
-	Email GCPServiceAccountEmail `json:"email,omitempty"`
+	Email GCPNodeServiceAccountEmail `json:"email,omitempty"`
 
 	// scopes specifies the access scopes for the service account.
 	// If not specified, defaults to standard compute scopes.
@@ -657,3 +657,13 @@ type GCPNodeServiceAccount struct {
 	// +kubebuilder:validation:items:MaxLength=512
 	Scopes []string `json:"scopes,omitempty"`
 }
+
+// GCPNodeServiceAccountEmail identifies a Google Service Account attached to a worker.
+// Unlike controller identities, workers may explicitly select the project's default
+// Compute service account, whose email uses the developer.gserviceaccount.com domain.
+// This validates only email syntax; GCP IAM still authorizes attaching the account.
+//
+// +kubebuilder:validation:MinLength=37
+// +kubebuilder:validation:MaxLength=85
+// +kubebuilder:validation:XValidation:rule="self.matches('^([a-z][a-z0-9-]{4,28}[a-z0-9]@[a-z][a-z0-9-]{4,28}[a-z0-9][.]iam[.]gserviceaccount[.]com|[1-9][0-9]{0,19}-compute@developer[.]gserviceaccount[.]com)$')",message="email must be a valid custom GCP service account email or a numeric default Compute service account email"
+type GCPNodeServiceAccountEmail string
