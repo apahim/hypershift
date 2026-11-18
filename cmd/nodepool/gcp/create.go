@@ -154,7 +154,7 @@ func (o *CompletedGCPNodePoolCreateOptions) UpdateNodePool(ctx context.Context, 
 	var serviceAccount *hyperv1.GCPNodeServiceAccount
 	if len(o.ServiceAccountEmail) > 0 {
 		serviceAccount = &hyperv1.GCPNodeServiceAccount{
-			Email: hyperv1.GCPServiceAccountEmail(o.ServiceAccountEmail),
+			Email: hyperv1.GCPNodeServiceAccountEmail(o.ServiceAccountEmail),
 		}
 	}
 
